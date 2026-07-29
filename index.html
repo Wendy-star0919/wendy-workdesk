@@ -1125,25 +1125,23 @@ function renderFinance(main, today) {
 
   // 最近记录
   if (appData.expenses.length > 0) {
-    html += `<div class="card"><div class="card-title"><span class="emoji">📋</span> 最近记录</div>`;
+    html += '<div class="card"><div class="card-title"><span class="emoji">📋</span> 最近记录</div>';
     const recent = [...appData.expenses].reverse().slice(0, 10);
     recent.forEach(e => {
       const itemLabel = e.itemName ? escHtml(e.itemName) : '';
-      const platformLabel = e.platform ? `<span style="color:var(--text-light);font-size:10px;">@${escHtml(e.platform)}</span>` : '';
-      html += `
-        <div class="expense-row">
-          <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;">
-            <span style="font-size:12px;color:var(--text-light);">${e.date}</span>
-            <span class="cat">${e.category}</span>
-            ${itemLabel ? `<span style="font-weight:500;margin-left:4px;">${itemLabel}</span>` : ''}
-            ${platformLabel}
-            ${e.note ? `<span style="color:var(--text-light);font-size:11px;margin-left:4px;">${escHtml(e.note)}</span>` : ''}
-          </span>
-          <span class="amount" style="color:var(--coral);white-space:nowrap;">-¥${parseFloat(e.amount).toFixed(2)}</span>
-        </div>
-      `;
+      const platformLabel = e.platform ? '<span style="color:var(--text-light);font-size:10px;">@' + escHtml(e.platform) + '</span>' : '';
+      const noteLabel = e.note ? '<span style="color:var(--text-light);font-size:11px;margin-left:4px;">' + escHtml(e.note) + '</span>' : '';
+      const itemSpan = itemLabel ? '<span style="font-weight:500;margin-left:4px;">' + itemLabel + '</span>' : '';
+      html += '<div class="expense-row">' +
+        '<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;">' +
+        '<span style="font-size:12px;color:var(--text-light);">' + e.date + '</span>' +
+        '<span class="cat">' + e.category + '</span>' +
+        itemSpan + platformLabel + noteLabel +
+        '</span>' +
+        '<span class="amount" style="color:var(--coral);white-space:nowrap;">-¥' + parseFloat(e.amount).toFixed(2) + '</span>' +
+        '</div>';
     });
-    html += `</div>`;
+    html += '</div>';
   }
 
   main.innerHTML = html;
