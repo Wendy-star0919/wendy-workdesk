@@ -2005,7 +2005,8 @@ function renderWeightChart() {
   const data = appData.weight.slice(-14);
   if (data.length < 2) return;
 
-  const w = container.offsetWidth;
+  // 获取容器宽度，保底320px防止移动端为0
+  const w = Math.max(container.offsetWidth || 320, 320);
   const h = 200;
   const pad = { top: 20, right: 16, bottom: 30, left: 16 };
   const chartW = w - pad.left - pad.right;
